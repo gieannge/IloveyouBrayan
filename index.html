@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Anniversary Surprise</title>
+<style>
+  body {
+    margin: 0;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: url('cat.jpeg');
+    background-size: cover;
+    font-family: Arial, sans-serif;
+    overflow: hidden;
+  }
+
+  .center {
+    text-align: center;
+  }
+
+  .hidden { display: none; }
+
+  .btn {
+    padding: 10px 20px;
+    background: #ff4f70;
+    color: white;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    font-size: 16px;
+  }
+
+  h1, h2 {
+    color: pink ;
+    font-family: Times New Roman ;
+    padding-top: 50px;
+    padding-right: 50px;
+    padding-bottom: 50px;
+    padding-left: 50px;
+    font-size: 30px;
+    
+  }
+  
+  p {
+      color: pink;
+      font-family: cursive;
+  }
+
+  .container {
+    position: relative;
+    width: 320px;
+    height: 220px;
+    cursor: pointer;
+  }
+
+  .envelope {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background: #ff6f91;
+    border-radius: 10px;
+    overflow: hidden;
+    z-index: 2;
+  }
+
+  .letter {
+    position: absolute;
+    width: 90%;
+    height: 90%;
+    background: black;
+    top: 100%;
+    left: 5%;
+    border-radius: 10px;
+    padding: 15px;
+    box-sizing: border-box;
+    transition: top 0.8s ease;
+    overflow-y: auto;
+    text-align: center;
+  }
+
+  .letter img {
+    width: 80%;
+    border-radius: 10px;
+    margin-bottom: 10px;
+  }
+
+  .flap {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background: #ff4f70;
+    clip-path: polygon(0 0, 50% 60%, 100% 0);
+    transform-origin: top;
+    transition: transform 0.8s ease;
+    z-index: 3;
+  }
+
+  .container.open .flap {
+    transform: rotateX(180deg);
+  }
+
+  .container.open .letter {
+    top: 10%;
+  }
+
+  .heart {
+    position: fixed;
+    color: red;
+    font-size: 40px;
+    animation: floatUp 2.5s linear forwards;
+    pointer-events: none;
+  }
+
+  @keyframes floatUp {
+    0% { transform: translateY(0); opacity: 1; }
+    100% { transform: translateY(-300px); opacity: 0; }
+  }
+</style>
+</head>
+<body>
+
+<!-- COUNTDOWN -->
+<div id="countScreen" class="center">
+  <h1 id="count">3</h1>
+</div>
+
+<!-- DATE SCREEN -->
+<div id="dateScreen" class="center hidden">
+  <h1>April 06, 2026<3</h1>
+  <button class="btn" onclick="showEnvelope()">Continue</button>
+</div>
+
+<!-- ENVELOPE -->
+<div id="envelopeScreen" class="center hidden">
+  <div class="container" onclick="toggleEnvelope()">
+    <div class="envelope">
+      <div class="letter">
+        <img src="kiss.gif" alt="Memory">
+                <img src="heart.jpeg" alt="Memory 2">
+        <h2>Happy Anniversary<3</h2>
+        <p>Dear Brayan,
+          <br><br>
+          Happy 1st anniversary! Even though you sometimes piss me off, I still love you. Even when I’m mad at you, I still love you and I hope it’s the same for you.
+          <br><br>
+          
+          I hope you know that I’m happy to be your girlfriend, and I’m really happy that we’ve reached our first anniversary. After all those fights, arguments, and even those breakups(I can’t count how many now), we’re still together and we made it to one year. I can’t believe it.
+                    <br><br>
+                    
+                    I hope you know that I truly love you, even if I get mad at you sometimes. I know we’re not always patient with each other, and our relationship isn’t perfect or always healthy, but I’m still grateful that we’re together.
+                              <br><br>
+
+
+That’s all. Thank you for everything. I love you so much.Once again, happy 1st anniversary. I hope you appreciate this thing thatbI did even it’s just simple.
+          <br><br>
+
+– Gieann
+                    
+        </p>
+
+        <audio controls style="margin-top:10px;">
+          <source src="Fuck u, Brayan.mp3" type="audio/mpeg">
+        </audio>
+      </div>
+    </div>
+    <div class="flap"></div>
+  </div>
+</div>
+
+<script>
+let count = 3;
+const countText = document.getElementById("count");
+
+const interval = setInterval(() => {
+  count--;
+  if (count > 0) {
+    countText.innerText = count;
+  } else {
+    clearInterval(interval);
+    document.getElementById("countScreen").classList.add("hidden");
+    document.getElementById("dateScreen").classList.remove("hidden");
+  }
+}, 1000);
+
+function showEnvelope() {
+  document.getElementById("dateScreen").classList.add("hidden");
+  document.getElementById("envelopeScreen").classList.remove("hidden");
+}
+
+function toggleEnvelope() {
+  const container = document.querySelector('.container');
+  const isOpen = container.classList.contains('open');
+
+  if (isOpen) {
+    container.classList.remove('open');
+  } else {
+    container.classList.add('open');
+    for (let i = 0; i < 30; i++) {
+      createHeart();
+    }
+  }
+}
+
+function createHeart() {
+  const heart = document.createElement('div');
+  heart.classList.add('heart');
+  heart.innerHTML = '❤️';
+
+  heart.style.left = Math.random() * 100 + 'vw';
+  heart.style.top = (Math.random() * 40 + 50) + 'vh';
+  heart.style.fontSize = (Math.random() * 25 + 30) + 'px';
+
+  document.body.appendChild(heart);
+
+  setTimeout(() => heart.remove(), 2500);
+}
+</script>
+
+</body>
+</html>
